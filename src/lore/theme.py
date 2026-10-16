@@ -197,7 +197,7 @@ class Theme:
             {
                 "": p.fg,
                 "rule": p.border,
-                "wordmark": f"bold {p.accent}",
+                "wordmark": "bold #34d399",  # emerald, whatever the theme
                 "brand": f"bold {p.accent}",
                 "brand.dim": p.faint,
                 "prompt": f"bold {p.accent}",

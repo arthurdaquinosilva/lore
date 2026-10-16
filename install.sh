@@ -22,7 +22,7 @@ BIN_DIR="${LORE_INSTALL_DIR:-$HOME/.local/bin}"
 VENV="$DATA_DIR/venv"
 
 if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
-    accent=$(printf '\033[1;38;5;209m'); dim=$(printf '\033[2m'); bold=$(printf '\033[1m')
+    accent=$(printf '\033[1;38;2;52;211;153m'); dim=$(printf '\033[2m'); bold=$(printf '\033[1m')
     green=$(printf '\033[32m'); red=$(printf '\033[31m'); reset=$(printf '\033[0m')
 else
     accent=''; dim=''; bold=''; green=''; red=''; reset=''
