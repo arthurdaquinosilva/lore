@@ -120,3 +120,18 @@ def test_open_alias_directly(term, indexed):
     t = term("@rv", rows=30)
     # `lore @rv` prints inline instead of opening the interface
     assert "Reverting a Commit" in t.text()
+
+
+def test_vi_mode_escape_enters_normal_mode_and_jk_move_the_list(term):
+    t = term("--vi")
+    t.send("revert", 0.5)
+    t.send("\x1b", 0.6)
+    assert "[NORMAL]" in t.text()
+    assert "❯ revert" in t.text()          # Esc did not clear the query
+    t.send("j", 0.4)
+    assert "❯ revert" in t.text()          # j moved the list, it was not typed
+    t.send("i", 0.3)
+    assert "[INSERT]" in t.text()
+    t.send("\x1b", 0.4)
+    t.send("\x1b", 0.5)                    # from normal mode Esc clears the query
+    assert "Search the courses" in t.text()

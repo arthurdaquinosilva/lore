@@ -10,9 +10,11 @@ from prompt_toolkit.application import Application
 from prompt_toolkit.buffer import Buffer
 from prompt_toolkit.document import Document
 from prompt_toolkit.enums import EditingMode
-from prompt_toolkit.filters import Condition
+from prompt_toolkit.cursor_shapes import ModalCursorShapeConfig
+from prompt_toolkit.filters import Condition, vi_insert_mode, vi_navigation_mode
 from prompt_toolkit.formatted_text import StyleAndTextTuples
 from prompt_toolkit.key_binding import KeyBindings, KeyPressEvent
+from prompt_toolkit.key_binding.vi_state import InputMode
 from prompt_toolkit.layout import (
     ConditionalContainer,
     DynamicContainer,
@@ -1016,6 +1018,10 @@ class LoreApp:
             return [("OPEN", "Enter"), ("COPY", "Ctrl+Y"), ("DELETE", "Ctrl+X"), ("SEARCH", "type"), ("EXIT", "Esc")]
         if not self.query_buf.text:
             return [("OPEN", "Enter"), ("SEARCH", "type"), ("HELP", "?"), ("EXIT", "Esc")]
+        if self.settings.editing_mode == "vi":
+            if self.app.vi_state.input_mode == InputMode.NAVIGATION:
+                return [("MOVE", "j/k"), ("OPEN", "Enter"), ("INSERT", "i"), ("ALIAS", "Ctrl+A"), ("COPY", "Ctrl+Y"), ("EXIT", "Esc")]
+            return [("NORMAL MODE", "Esc"), ("OPEN", "Enter"), ("NEXT", "Tab"), ("ALIAS", "Ctrl+A"), ("COPY", "Ctrl+Y"), ("EXIT", "Esc Esc")]
         return [("OPEN", "Enter"), ("NEXT", "Tab"), ("ALIAS", "Ctrl+A"), ("COPY", "Ctrl+Y"), ("KIND", "Ctrl+T"),
                 ("COURSE", "Ctrl+S"), ("HELP", "F1"), ("EXIT", "Esc")]
 
@@ -1042,6 +1048,9 @@ class LoreApp:
         out: StyleAndTextTuples = [("", "  ")]
         if self.flash and time.monotonic() < self.flash[1]:
             return out + [("class:flash", self.flash[0])]
+        if self.settings.editing_mode == "vi" and self.mode == "search" and self.prompt is None:
+            mode = "NORMAL" if self.app.vi_state.input_mode == InputMode.NAVIGATION else "INSERT"
+            out += [("class:keybar.label", f"[{mode}]"), ("", "  ")]
         sep = ("class:status.sep", "  ·  ")
         if self.mode == "reader" and self.reader:
             rd = self.reader
@@ -1193,6 +1202,7 @@ class LoreApp:
             full_screen=True,
             mouse_support=True,
             output=self._output,
+            cursor=ModalCursorShapeConfig(),
             editing_mode=EditingMode.VI if self.settings.editing_mode == "vi" else EditingMode.EMACS,
         )
         app.ttimeoutlen = 0.05
@@ -1327,7 +1337,26 @@ class LoreApp:
         def _print(event: KeyPressEvent) -> None:
             self.print_and_quit()
 
-        @kb.add("escape", filter=search, eager=True)
+        @kb.add("j", filter=search & vi_navigation_mode)
+        def _vi_down(event: KeyPressEvent) -> None:
+            self.move(1)
+
+        @kb.add("k", filter=search & vi_navigation_mode)
+        def _vi_up(event: KeyPressEvent) -> None:
+            self.move(-1)
+
+        @kb.add("G", filter=search & vi_navigation_mode)
+        def _vi_last(event: KeyPressEvent) -> None:
+            for _ in range(len(self.rows)):
+                self.move(1)
+
+        @kb.add("g", "g", filter=search & vi_navigation_mode)
+        def _vi_first(event: KeyPressEvent) -> None:
+            for _ in range(len(self.rows)):
+                self.move(-1)
+
+        # In vi mode Esc first leaves insert mode (the default binding); from normal mode it clears / leaves.
+        @kb.add("escape", filter=search & ~vi_insert_mode, eager=True)
         def _esc(event: KeyPressEvent) -> None:
             if self.query_buf.text:
                 self.query_buf.text = ""

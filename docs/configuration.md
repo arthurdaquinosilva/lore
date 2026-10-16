@@ -39,7 +39,7 @@ lore index --source /path/to/programming-material/_build/sources
 
 ```toml
 theme = "void"            # void | nebula | matrix
-editing_mode = "emacs"    # "vi" gives the search box vi keys
+editing_mode = "emacs"    # "vi" gives the search box vi keys (Esc → normal mode; j/k move the list; i, a, A, I edit)
 preview = "auto"          # auto | on | off — auto hides the preview below 100 columns
 source = "~/programming-material/_build/sources"
 ```
