@@ -8,7 +8,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterator
 
-from lore.htmlclean import FENCE, clean, plain
+from lore.htmlclean import FENCE, clean
 
 OUTPUT_LANGS = {"text", "txt", "console", "output"}
 SECTION = re.compile(r"^===SECTION:\s*(.+?)\s*===\s*$")

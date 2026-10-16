@@ -30,7 +30,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest", "pyte", "pexpect"]
+dev = ["pytest", "pyte", "pexpect", "pyflakes"]
 
 [project.scripts]
 lore = "lore.cli:main"

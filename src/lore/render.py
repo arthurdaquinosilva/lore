@@ -98,7 +98,6 @@ def render(md: str, width: int, theme: Theme, selected: int | None = None, rail:
 
 def _render_blocks(blocks: list[Block], console: Console, theme: Theme, out: list[Line], spans: dict, width: int,
                    selected: int | None) -> None:
-    p = theme.p
     for blk in blocks:
         if blk.kind == "prose":
             _gap(out)

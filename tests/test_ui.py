@@ -93,7 +93,6 @@ def test_kind_and_course_filters_cycle(term):
 
 
 def test_pick_mode_prints_the_selection_into_a_pipe(indexed):
-    import shutil
 
     lore = os.path.join(os.path.dirname(sys.executable), "lore")
     child = pexpect.spawn("/bin/sh", ["-c", f"{lore} --pick git reset | cat"], dimensions=(30, 100), timeout=5,

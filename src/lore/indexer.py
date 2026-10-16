@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Callable
 
 from lore import __version__
-from lore.corpus import Course, load_all, parse_course
+from lore.corpus import parse_course
 from lore.htmlclean import plain
 from lore.paths import index_path
 
