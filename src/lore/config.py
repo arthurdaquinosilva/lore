@@ -19,7 +19,7 @@ PREVIEWS = ("auto", "on", "off")
 
 @dataclass
 class Settings:
-    theme: str = "void"
+    theme: str = "pitch"
     editing_mode: str = "emacs"
     source: Path | None = None
     preview: str = "auto"

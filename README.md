@@ -25,7 +25,7 @@ A devdocs for the terminal: type a few words, pick a suggestion, read it or copy
 - **Three kinds of answer.** ▤ topics, ❯ code snippets *with the output the course printed under them*, and ◆ definitions. Typos are repaired, filters narrow the search (`in:git`, `kind:term`, `lang:bash`).
 - **Read or grab.** A preview beside the list, a scrolling reader with highlighted code and exercise solutions, and one key to copy a code block.
 - **Aliases.** Name a topic, a single code block, a definition or your own text, and bring it back with `lore @name`.
-- **Feels good.** The same calm look as [ember](https://github.com/arthurdaquinosilva/ember): rule layout, key bar, three themes, vi or emacs keys.
+- **Feels good.** The same calm look as [ember](https://github.com/arthurdaquinosilva/ember): rule layout, key bar, the shared pitch palette, vi or emacs keys.
 
 ## Install
 
@@ -92,7 +92,7 @@ lore get git:7.3             # print a topic, snippet (git:7.3#2) or alias
 lore alias add|ls|mv|note|rm
 lore index [--source DIR]    # (re)build the index
 lore courses | info | config
-lore --theme nebula --vi
+lore --vi
 ```
 
 ## Development

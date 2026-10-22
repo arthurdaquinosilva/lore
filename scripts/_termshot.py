@@ -20,12 +20,12 @@ from rich.text import Text
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# lore's "void" theme (shared with lore), so the image matches what you see in the terminal
+# The pitch palette on a black terminal, so the image matches what you see in the terminal
 THEME = TerminalTheme(
-    (18, 19, 22),
-    (231, 231, 231),
-    [(0, 0, 0), (255, 107, 107), (126, 226, 168), (242, 193, 78), (124, 196, 255), (201, 160, 255), (134, 199, 192), (231, 231, 231)],
-    [(85, 85, 85), (255, 107, 107), (126, 226, 168), (242, 193, 78), (124, 196, 255), (201, 160, 255), (134, 199, 192), (255, 255, 255)],
+    (0, 0, 0),
+    (192, 202, 245),
+    [(0, 0, 0), (247, 118, 142), (158, 206, 106), (224, 175, 104), (122, 162, 247), (187, 154, 247), (125, 207, 255), (169, 177, 214)],
+    [(59, 66, 97), (247, 118, 142), (158, 206, 106), (224, 175, 104), (122, 162, 247), (187, 154, 247), (125, 207, 255), (192, 202, 245)],
 )
 
 # Rich's SVG template without the mac-window chrome, cropped to the terminal itself.
@@ -34,7 +34,7 @@ FRAMELESS_SVG_FORMAT = (
         '<svg class="rich-terminal" viewBox="0 0 {width} {height}"',
         '<svg class="rich-terminal" viewBox="0 0 {terminal_width} {terminal_height}"',
     )
-    .replace("{chrome}", '<rect fill="#121316" x="0" y="0" width="{terminal_width}" height="{terminal_height}"/>')
+    .replace("{chrome}", '<rect fill="#000000" x="0" y="0" width="{terminal_width}" height="{terminal_height}"/>')
     .replace("<g transform=\"translate({terminal_x}, {terminal_y})\"", '<g transform="translate(0, 0)"')
 )
 

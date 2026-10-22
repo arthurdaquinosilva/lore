@@ -1,7 +1,7 @@
 from lore.render import fragments, head, render
 from lore.theme import get_theme
 
-THEME = get_theme("void")
+THEME = get_theme("pitch")
 
 
 def test_code_blocks_are_tracked_by_snippet_number():

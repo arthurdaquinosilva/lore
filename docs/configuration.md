@@ -38,13 +38,13 @@ lore index --source /path/to/programming-material/_build/sources
 `config.toml`, every key optional:
 
 ```toml
-theme = "void"            # void | nebula | matrix
+theme = "pitch"           # the only theme for now
 editing_mode = "emacs"    # "vi" gives the search box vi keys (Esc → normal mode; j/k move the list; i, a, A, I edit)
 preview = "auto"          # auto | on | off — auto hides the preview below 100 columns
 source = "~/programming-material/_build/sources"
 ```
 
-Command-line options override the file for one run: `--theme nebula`, `--vi`. A bad value prints a warning and the default is used.
+Command-line options override the file for one run: `--vi`, `--course git`. A bad value prints a warning and the default is used.
 
 | Environment variable | |
 | --- | --- |

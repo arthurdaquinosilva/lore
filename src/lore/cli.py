@@ -31,7 +31,7 @@ With no arguments it opens the interface; with a query it opens it already searc
 options:
   -c, --course COURSE   limit the search to one course (git, python, sql, …)
   -k, --kind KIND       topic | snippet | term
-  --theme NAME          void | nebula | matrix
+  --theme NAME          pitch
   --vi                  vi key bindings in the search box
   --pick                use as a picker:  lore --pick git rebase | pbcopy
   --version             show the version
